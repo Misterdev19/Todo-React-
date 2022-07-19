@@ -16,16 +16,28 @@ const todos = [
 
 function App() {
   return (
-    <>
-      <TodoCounter/>
-      <TodoSearch />
-      <TodoList>
-        {todos.map(todo => (
-          <TodoItem key={todo.text} text={todo.text} />
-        ))}
-      </TodoList>
-      <CreatTodoButton />
-    </>
+     <div className="container">
+        <div className="row">
+          <div className="col-sm-5">
+           <TodoCounter/>
+          </div>
+        <div className="row">
+          <div className="col-sm-5">
+             <TodoSearch />
+          </div>
+          <div className="col-sm-2">
+            <CreatTodoButton />
+          </div>
+          <div className="col-sm-5">
+            <TodoList>
+              {todos.map(todo =>
+                <TodoItem key={todo.text} text={todo.text} />
+              )}
+            </TodoList>
+          </div>
+        </div>
+        </div>
+     </div>
   );
 }
 

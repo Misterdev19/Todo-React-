@@ -1,7 +1,12 @@
 import React  from "react";
+import { Input } from "reactstrap";
 
 export function TodoSearch (){
     return  (
-        <input type="text" placeholder="New task" />
+        <div>
+        <Input
+            bsSize="lg"
+        />
+        </div>
     );
 }

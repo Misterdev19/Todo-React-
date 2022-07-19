@@ -1,12 +1,12 @@
 import React from "react";
+import {ListGroup} from "reactstrap"
+import { Button } from "react-bootstrap";
 
 export function TodoList(props) {
     return (
-        <section>
-            <ul>
+        <ListGroup>
                 {props.children}
-            </ul>
-        </section>
+        </ListGroup>
 
     );
 }
