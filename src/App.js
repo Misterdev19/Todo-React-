@@ -4,6 +4,8 @@ import { TodoItem } from './components/TodoItem';
 import { TodoList } from './components/TodoList';
 import { TodoSearch } from './components/TodoSearch';
 import { CreatTodoButton } from './components/CreatTodoButton';
+import urlImg from './img/logo.jpg';
+import { Table } from 'reactstrap';
 
 
 
@@ -16,28 +18,53 @@ const todos = [
 
 function App() {
   return (
-     <div className="container">
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-5">
+          <TodoCounter />
+        </div>
         <div className="row">
           <div className="col-sm-5">
-           <TodoCounter/>
-          </div>
-        <div className="row">
-          <div className="col-sm-5">
-             <TodoSearch />
+            <TodoSearch />
+            <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
+              <div className="col-sm-12">
+                <img src={urlImg} class="img-thumbnail" alt="" />
+              </div>
+            </div>
           </div>
           <div className="col-sm-2">
             <CreatTodoButton />
           </div>
-          <div className="col-sm-5">
-            <TodoList>
-              {todos.map(todo =>
-                <TodoItem key={todo.text} text={todo.text} />
-              )}
-            </TodoList>
+          <div className="col-sm-5 shadow-lg p-3 mb-5 bg-body rounde">
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Name task
+                  </th>
+                  <th>
+                    Status
+                  </th>
+                  <th>
+                    Settings
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <TodoList>
+                  {todos.map((todo, index) =>
+                    <TodoItem key={todo.text} text={todo.text} st={todo.completed} id={index} />
+                  )}
+                </TodoList>
+              </tbody>
+            </Table>
           </div>
         </div>
-        </div>
-     </div>
+      </div>
+    </div >
   );
 }
 

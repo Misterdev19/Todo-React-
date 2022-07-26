@@ -5,7 +5,8 @@ export function TodoSearch (){
     return  (
         <div>
         <Input
-            bsSize="lg"
+            bsSize="md"
+            placeholder="New task"
         />
         </div>
     );
