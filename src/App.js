@@ -6,6 +6,7 @@ import { TodoSearch } from './components/TodoSearch';
 import { CreatTodoButton } from './components/CreatTodoButton';
 import urlImg from './img/logo.jpg';
 import { Table } from 'reactstrap';
+import  './asset/css/styles.css';
 
 
 
@@ -18,13 +19,13 @@ const todos = [
 
 function App() {
   return (
-    <div className="container">
+    <div className="container con">
       <div className="row">
         <div className="col-sm-5">
           <TodoCounter />
         </div>
         <div className="row">
-          <div className="col-sm-5">
+          <div className="col-sm-4">
             <TodoSearch />
             <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
               <div className="col-sm-12">
@@ -35,7 +36,7 @@ function App() {
           <div className="col-sm-2">
             <CreatTodoButton />
           </div>
-          <div className="col-sm-5 shadow-lg p-3 mb-5 bg-body rounde">
+          <div className="col-sm-6 shadow-lg p-3 mb-5 bg-body rounde">
             <Table bordered hover>
               <thead>
                 <tr>

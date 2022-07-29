@@ -18,11 +18,9 @@ export function TodoItem(props) {
                 </div>
             </td>
             <td>
-                <div className="text-center mb-2">
-                    <Button color="danger" size="sm" ><FaRegTrashAlt /></Button>
-                </div>
-                <div className="text-center">
-                    <Button color="success" size="sm"  > <FaCheckSquare /></Button>
+                <div className="text-center ">
+                    <Button color="warning me-3" size="sm" ><FaRegTrashAlt /></Button>
+                    <Button color="primary" size="sm"  > <FaCheckSquare /></Button>
                 </div>
             </td>
         </tr>
