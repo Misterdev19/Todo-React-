@@ -29,7 +29,7 @@ function App() {
             <TodoSearch />
             <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
               <div className="col-sm-12">
-                <img src={urlImg} class="img-thumbnail" alt="" />
+                <img src={urlImg} className="img-thumbnail" alt="" />
               </div>
             </div>
           </div>
@@ -68,5 +68,4 @@ function App() {
     </div >
   );
 }
-
 export default App;
