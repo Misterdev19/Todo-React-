@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { TodoCounter } from './components/TodoCounter';
 import { TodoItem } from './components/TodoItem';
 import { TodoList } from './components/TodoList';
@@ -10,7 +11,7 @@ import  './asset/css/styles.css';
 
 
 
-const todos = [
+const defaulTodos = [
   { text: 'Botar la Basura', completed: false },
   { text: 'Lavar los platos', completed: false },
   { text: 'Comprar comdida', completed: false },
@@ -18,15 +19,35 @@ const todos = [
 ]
 
 function App() {
+
+  const [todos , setTodo] = useState(defaulTodos);
+  const [searchValue, setSearchValue ] = useState('');
+
+  const completedTodos =  todos.filter(todo => !!todo.completed);
+
+  let todoFilter = todos;
+  if(searchValue.length > 3){
+     todoFilter = todos.filter(todo => todo.text.toLocaleLowerCase().indexOf(searchValue.toLowerCase()) > -1);
+  }
+
+  const totalTodos = todos.length;
+
   return (
     <div className="container con">
       <div className="row">
         <div className="col-sm-5">
-          <TodoCounter />
+          <TodoCounter
+              total={totalTodos}
+              completed={completedTodos}
+          />
         </div>
         <div className="row">
           <div className="col-sm-4">
-            <TodoSearch />
+            <TodoSearch
+                searchValue={searchValue}
+                setSearchValue ={setSearchValue}
+                todoSearchText= {todoFilter}
+            />
             <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
               <div className="col-sm-12">
                 <img src={urlImg} className="img-thumbnail" alt="" />
@@ -56,7 +77,7 @@ function App() {
               </thead>
               <tbody>
                 <TodoList>
-                  {todos.map((todo, index) =>
+                  {todoFilter.map((todo, index) =>
                     <TodoItem key={todo.text} text={todo.text} st={todo.completed} id={index} />
                   )}
                 </TodoList>

@@ -6,7 +6,6 @@ export function TodoItem(props) {
 
     const OnCompleteTask =()=>{
         alert("Task complete"+ props.text);
-
     }
     const OnDeleteTask=()=>{
         alert("Task "+ props.text+ " deleted");
