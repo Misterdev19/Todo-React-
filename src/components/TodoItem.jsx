@@ -3,21 +3,13 @@ import { Button } from "reactstrap";
 import { FaCheckSquare, FaRegTrashAlt } from 'react-icons/fa';
 
 export function TodoItem(props) {
-
-    const OnCompleteTask =()=>{
-        alert("Task complete"+ props.text);
-    }
-    const OnDeleteTask=()=>{
-        alert("Task "+ props.text+ " deleted");
-
-    }
     return (
         <tr>
             <td>
                 {props.id}
             </td>
             <td>
-                <p className="lead ">{props.text}</p>
+                <p className="lead ">{(props.st) ? <spam><del>{props.text}</del></spam> : <spam>{props.text}</spam>}</p>
             </td>
             <td>
                 <div className="text-center ">
@@ -27,8 +19,8 @@ export function TodoItem(props) {
             </td>
             <td>
                 <div className="text-center ">
-                    <Button color="warning me-3" size="sm"   onClick={OnDeleteTask} ><FaRegTrashAlt /></Button>
-                    <Button color="primary" size="sm" onClick={OnCompleteTask} > <FaCheckSquare /></Button>
+                    <Button color="warning me-3" size="sm" onClick={props.onDelete} ><FaRegTrashAlt /></Button>
+                    <Button color="primary" size="sm" onClick={props.onComplete} > <FaCheckSquare /></Button>
                 </div>
             </td>
         </tr>

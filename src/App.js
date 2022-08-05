@@ -7,9 +7,7 @@ import { TodoSearch } from './components/TodoSearch';
 import { CreatTodoButton } from './components/CreatTodoButton';
 import urlImg from './img/logo.jpg';
 import { Table } from 'reactstrap';
-import  './asset/css/styles.css';
-
-
+import './asset/css/styles.css';
 
 const defaulTodos = [
   { text: 'Botar la Basura', completed: false },
@@ -20,33 +18,50 @@ const defaulTodos = [
 
 function App() {
 
-  const [todos , setTodo] = useState(defaulTodos);
-  const [searchValue, setSearchValue ] = useState('');
+  const [todos, setTodo] = useState(defaulTodos);
+  const [searchValue, setSearchValue] = useState('');
 
-  const completedTodos =  todos.filter(todo => !!todo.completed);
+  const completedTodos = todos.filter(todo => !!todo.completed);
 
   let todoFilter = todos;
-  if(searchValue.length > 3){
-     todoFilter = todos.filter(todo => todo.text.toLocaleLowerCase().indexOf(searchValue.toLowerCase()) > -1);
+
+  if (searchValue.length > 2) {
+    todoFilter = todos.filter(todo => todo.text.toLocaleLowerCase().indexOf(searchValue.toLowerCase()) > -1);
   }
 
   const totalTodos = todos.length;
+
+  //Function for  change status of  task
+  const completedTask = (text) => {
+    let indexTask = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    newTodos[indexTask].completed = true;
+    setTodo(newTodos);
+  }
+  //Fuction for delete task
+  const deleteTask = (text) => {
+    let indexTask = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    newTodos.splice(indexTask, 1);
+    setTodo(newTodos);
+  }
+
 
   return (
     <div className="container con">
       <div className="row">
         <div className="col-sm-5">
           <TodoCounter
-              total={totalTodos}
-              completed={completedTodos}
+            total={totalTodos}
+            completed={completedTodos}
           />
         </div>
         <div className="row">
           <div className="col-sm-4">
             <TodoSearch
-                searchValue={searchValue}
-                setSearchValue ={setSearchValue}
-                todoSearchText= {todoFilter}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              todoSearchText={todoFilter}
             />
             <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
               <div className="col-sm-12">
@@ -78,7 +93,14 @@ function App() {
               <tbody>
                 <TodoList>
                   {todoFilter.map((todo, index) =>
-                    <TodoItem key={todo.text} text={todo.text} st={todo.completed} id={index} />
+                    <TodoItem
+                      key={todo.text}
+                      text={todo.text}
+                      st={todo.completed}
+                      id={index}
+                      onComplete={() => { completedTask(todo.text) }}
+                      onDelete={() => deleteTask(todo.text)}
+                       />
                   )}
                 </TodoList>
               </tbody>
