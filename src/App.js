@@ -9,12 +9,12 @@ import urlImg from "./img/logo.jpg";
 import { Table } from "reactstrap";
 import "./asset/css/styles.css";
 
-// const defaulTodos = [
-//   { text: "Botar la Basura", completed: false },
-//   { text: "Lavar los platos", completed: false },
-//   { text: "Comprar comdida", completed: false },
-//   { text: "Estudiar Reactjs", completed: false }
-// ];
+const defaulTodos = [
+  { text: "Botar la Basura", completed: false },
+  { text: "Lavar los platos", completed: false },
+  { text: "Comprar comdida", completed: false },
+  { text: "Estudiar Reactjs", completed: false }
+];
 function useLocalStorange(itemName, initialValue) {
   const localStorangItem = localStorage.getItem(itemName);
   let parsedItem;
@@ -37,7 +37,7 @@ function useLocalStorange(itemName, initialValue) {
 }
 
 function App() {
-  const [todos, saveTodo] = useLocalStorange("TODOS_V1", []);
+  const [todos, saveTodo] = useLocalStorange("TODOS_V1", defaulTodos);
   const [searchValue, setSearchValue] = useState("");
 
   const completedTodos = todos.filter((todo) => !!todo.completed);
@@ -52,6 +52,7 @@ function App() {
   }
 
   const totalTodos = todos.length;
+
   //Function for  change status of  task
   const completedTask = (text) => {
     let indexTask = todos.findIndex((todo) => todo.text === text);
@@ -66,6 +67,8 @@ function App() {
     newTodos.splice(indexTask, 1);
     saveTodo(newTodos);
   };
+
+
 
   return (
     <div className="container con">

@@ -9,7 +9,7 @@ export function TodoItem(props) {
                 {props.id}
             </td>
             <td>
-                <p className="lead ">{(props.st) ? <spam><del>{props.text}</del></spam> : <spam>{props.text}</spam>}</p>
+                <p className="lead ">{(props.st) ? <span><del>{props.text}</del></span> : <span>{props.text}</span>}</p>
             </td>
             <td>
                 <div className="text-center ">
