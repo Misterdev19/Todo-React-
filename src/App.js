@@ -9,35 +9,57 @@ import urlImg from "./img/logo.jpg";
 import { Table } from "reactstrap";
 import "./asset/css/styles.css";
 
-const defaulTodos = [
-  { text: "Botar la Basura", completed: false },
-  { text: "Lavar los platos", completed: false },
-  { text: "Comprar comdida", completed: false },
-  { text: "Estudiar Reactjs", completed: false }
-];
+// const defaulTodos = [
+//   { text: "Botar la Basura", completed: false },
+//   { text: "Lavar los platos", completed: false },
+//   { text: "Comprar comdida", completed: false },
+//   { text: "Estudiar Reactjs", completed: false }
+// ];
+
+
 function useLocalStorange(itemName, initialValue) {
-  const localStorangItem = localStorage.getItem(itemName);
-  let parsedItem;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [item, setItem] = useState(initialValue);
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorangItem = localStorage.getItem(itemName);
+        let parsedItem;
 
-  if (!localStorangItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorangItem);
-  }
+        if (!localStorangItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorangItem);
+          setLoading(false);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    }, 1000);
+  });
 
-  const [item, setItem] = useState(parsedItem);
   //connection between localStorange and the status
   const saveItem = (newTItem) => {
-    const stringiTItem = JSON.stringify(newTItem);
-    localStorage.setItem(itemName, stringiTItem);
-    setItem(newTItem);
+    try {
+      const stringiTItem = JSON.stringify(newTItem);
+      localStorage.setItem(itemName, stringiTItem);
+      setItem(newTItem);
+    } catch (error) {
+      setError(error);
+    }
   };
-  return [item, saveItem];
+  return { item, saveItem, loading, error };
 }
 
 function App() {
-  const [todos, saveTodo] = useLocalStorange("TODOS_V1", defaulTodos);
+  const {
+    item: todos,
+    setItem: saveTodo,
+    loading,
+    error
+  } = useLocalStorange("TODOS_V1", []);
   const [searchValue, setSearchValue] = useState("");
 
   const completedTodos = todos.filter((todo) => !!todo.completed);
@@ -68,8 +90,6 @@ function App() {
     saveTodo(newTodos);
   };
 
-
-
   return (
     <div className="container con">
       <div className="row">
@@ -83,6 +103,9 @@ function App() {
               setSearchValue={setSearchValue}
               todoSearchText={todoFilter}
             />
+            {error && <p>Hay un error...</p>}
+            {loading && <p>Estamos cargando, no desespere</p>}
+            {(!loading && !todoFilter.length) && <p>!Crea tu primera task</p>}
             <div className="row mt-4 shadow-lg p-3 mb-5 bg-body rounde">
               <div className="col-sm-12">
                 <img src={urlImg} className="img-thumbnail" alt="" />
